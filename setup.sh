@@ -98,12 +98,11 @@ DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 mkdir -p "$HOME/.config/kitty"
 mkdir -p "$HOME/.claude"
 
-# source:target pairs
+# source:target pairs (symlinked)
 files="
 zshrc:$HOME/.zshrc
 tmux.conf:$HOME/.tmux.conf
 kitty.conf:$HOME/.config/kitty/kitty.conf
-claude-settings.json:$HOME/.claude/settings.json
 "
 
 for entry in $files; do
@@ -111,9 +110,7 @@ for entry in $files; do
     target="${entry#*:}"
     source_path="$DOTFILES_DIR/$src"
 
-    # Back up existing file if it's not already a symlink to our dotfile
     if [ -e "$target" ] && [ ! -L "$target" ]; then
-        echo "Backing up $target -> ${target}.bak"
         mv "$target" "${target}.bak"
     elif [ -L "$target" ]; then
         rm "$target"
@@ -121,7 +118,14 @@ for entry in $files; do
 
     ln -s "$source_path" "$target"
 done
-echo -e " $CHECK Config files symlinked"
+
+# Claude settings (copied with HOME path substituted)
+CLAUDE_SETTINGS="$HOME/.claude/settings.json"
+[ -e "$CLAUDE_SETTINGS" ] && [ ! -L "$CLAUDE_SETTINGS" ] && mv "$CLAUDE_SETTINGS" "${CLAUDE_SETTINGS}.bak"
+[ -L "$CLAUDE_SETTINGS" ] && rm "$CLAUDE_SETTINGS"
+sed "s|__HOME__|$HOME|g" "$DOTFILES_DIR/claude-settings.json" > "$CLAUDE_SETTINGS"
+
+echo -e " $CHECK Config files installed"
 
 # --- Configure Claude Usage Tracker statusline ---
 STATUSLINE_TARGET="$HOME/.claude/statusline-config.txt"

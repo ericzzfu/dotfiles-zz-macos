@@ -1,7 +1,7 @@
 {
   "statusLine" : {
     "type" : "command",
-    "command" : "bash \/Users\/zz\/.claude\/statusline-command.sh"
+    "command" : "bash __HOME__/.claude/statusline-command.sh"
   },
   "extraKnownMarketplaces" : {
     "claude-plugins-official" : {

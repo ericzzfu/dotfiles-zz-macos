@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Regenerate bootstrap.sh from current config files
+./generate-bootstrap.sh > bootstrap.sh
+chmod +x bootstrap.sh
+git add bootstrap.sh
