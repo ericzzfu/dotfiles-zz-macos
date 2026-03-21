@@ -10,12 +10,11 @@ cd ~/repos/dotfiles && ./setup.sh
 ```
 
 The setup script:
-- Checks and installs dependencies via Homebrew
+- Installs Homebrew if missing, then installs all dependencies
 - Symlinks config files to their expected locations
 - Backs up any existing configs (to `.bak`)
 - Configures Maccy and Claude Usage Tracker preferences
 - Auto-reloads kitty and tmux configs
-- Requires kitty terminal (checks `$TERM`)
 
 ## Dependencies
 

@@ -9,10 +9,13 @@ CHECK='\xE2\x9C\x93'
 # --- Check and install dependencies ---
 echo "Checking dependencies..."
 
-# Homebrew is required for everything
+# Homebrew
 if ! command -v brew &>/dev/null; then
-    echo -e "${RED}Homebrew is required. Install from https://brew.sh${NC}"
-    exit 1
+    echo "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+else
+    echo -e " $CHECK Homebrew"
 fi
 
 # Kitty must be installed and used as the terminal
