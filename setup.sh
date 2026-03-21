@@ -9,14 +9,17 @@ fi
 
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-# Ensure kitty config directory exists
+# Ensure config directories exist
 mkdir -p "$HOME/.config/kitty"
+mkdir -p "$HOME/.claude"
 
 # source:target pairs
 files="
 zshrc:$HOME/.zshrc
 tmux.conf:$HOME/.tmux.conf
 kitty.conf:$HOME/.config/kitty/kitty.conf
+statusline.sh:$HOME/.claude/statusline.sh
+claude-settings.json:$HOME/.claude/settings.json
 "
 
 for entry in $files; do
