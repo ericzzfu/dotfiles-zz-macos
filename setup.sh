@@ -31,7 +31,7 @@ if [ "$TERM" != "xterm-kitty" ]; then
 fi
 
 # Brew packages
-brew_deps="fzf tmux"
+brew_deps="fzf tmux gh"
 for dep in $brew_deps; do
     if ! command -v "$dep" &>/dev/null; then
         echo "Installing $dep..."
@@ -40,6 +40,11 @@ for dep in $brew_deps; do
         echo -e " $CHECK $dep"
     fi
 done
+
+# Check gh auth
+if ! gh auth status &>/dev/null; then
+    echo -e "${YELLOW}gh is not logged in. Run 'gh auth login' to authenticate.${NC}"
+fi
 
 # Brew packages (sourced, not commands)
 brew_source_deps="zsh-autosuggestions zsh-syntax-highlighting"
