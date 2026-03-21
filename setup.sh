@@ -42,7 +42,11 @@ done
 
 GREEN='\033[0;32m'
 NC='\033[0m'
+
+# Reload configs (failures are non-fatal)
+set +e
+kitty @ load-config 2>/dev/null && echo -e "${GREEN}Reloaded kitty config${NC}" || echo -e "${GREEN}Press Ctrl+Shift+F5 or restart kitty to apply kitty config${NC}"
+tmux source-file "$HOME/.tmux.conf" 2>/dev/null && echo -e "${GREEN}Reloaded tmux config${NC}" || echo -e "${GREEN}No active tmux session — config will apply on next tmux start${NC}"
+
 echo ""
-echo -e "${GREEN}Done. Restart your shell or run: source ~/.zshrc${NC}"
-echo -e "${GREEN}Reload kitty config with Ctrl+Shift+F5 or restart kitty.${NC}"
-echo -e "${GREEN}Reload tmux config with: tmux source-file ~/.tmux.conf${NC}"
+echo -e "${GREEN}Done! Run 'source ~/.zshrc' or restart your shell to apply zsh changes.${NC}"
