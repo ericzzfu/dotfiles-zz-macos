@@ -3,21 +3,27 @@ set -euo pipefail
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
-YELLOW='\033[0;33m'
 NC='\033[0m'
-
-# Require kitty
-if [ "$TERM" != "xterm-kitty" ]; then
-    echo -e "${RED}Error: This setup requires kitty terminal. Current TERM=$TERM${NC}"
-    exit 1
-fi
+CHECK='\xE2\x9C\x93'
 
 # --- Check and install dependencies ---
 echo "Checking dependencies..."
 
 # Homebrew is required for everything
 if ! command -v brew &>/dev/null; then
-    echo -e "${RED}Error: Homebrew is required. Install from https://brew.sh${NC}"
+    echo -e "${RED}Homebrew is required. Install from https://brew.sh${NC}"
+    exit 1
+fi
+
+# Kitty must be installed and used as the terminal
+if ! command -v kitty &>/dev/null && [ ! -d "/Applications/kitty.app" ]; then
+    echo "Installing kitty..."
+    brew install --cask kitty
+    echo -e "${GREEN}kitty installed. Please open kitty and rerun this script.${NC}"
+    exit 0
+fi
+if [ "$TERM" != "xterm-kitty" ]; then
+    echo -e "${RED}Please run this script from kitty terminal. Current TERM=$TERM${NC}"
     exit 1
 fi
 
@@ -25,10 +31,10 @@ fi
 brew_deps="fzf tmux"
 for dep in $brew_deps; do
     if ! command -v "$dep" &>/dev/null; then
-        echo -e "${YELLOW}Installing $dep...${NC}"
+        echo "Installing $dep..."
         brew install "$dep"
     else
-        echo -e "${GREEN}$dep already installed${NC}"
+        echo -e " $CHECK $dep"
     fi
 done
 
@@ -36,35 +42,43 @@ done
 brew_source_deps="zsh-autosuggestions zsh-syntax-highlighting"
 for dep in $brew_source_deps; do
     if [ ! -d "$(brew --prefix)/share/$dep" ] 2>/dev/null; then
-        echo -e "${YELLOW}Installing $dep...${NC}"
+        echo "Installing $dep..."
         brew install "$dep"
     else
-        echo -e "${GREEN}$dep already installed${NC}"
+        echo -e " $CHECK $dep"
     fi
 done
 
 # Claude Code
 if ! command -v claude &>/dev/null; then
-    echo -e "${YELLOW}Installing Claude Code...${NC}"
+    echo "Installing Claude Code..."
     brew install claude
 else
-    echo -e "${GREEN}Claude Code already installed${NC}"
+    echo -e " $CHECK Claude Code"
 fi
 
 # Maccy
 if [ ! -d "/Applications/Maccy.app" ] && ! brew list --cask maccy &>/dev/null 2>&1; then
-    echo -e "${YELLOW}Installing Maccy...${NC}"
+    echo "Installing Maccy..."
     brew install --cask maccy
 else
-    echo -e "${GREEN}Maccy already installed${NC}"
+    echo -e " $CHECK Maccy"
 fi
 
 # Claude Usage Tracker
 if [ ! -d "/Applications/Claude Usage.app" ]; then
-    echo -e "${YELLOW}Claude Usage Tracker not found.${NC}"
-    echo -e "${YELLOW}Install from: https://github.com/hamed-elfayome/Claude-Usage-Tracker${NC}"
+    echo "Installing Claude Usage Tracker..."
+    brew install --cask hamed-elfayome/claude-usage/claude-usage-tracker
 else
-    echo -e "${GREEN}Claude Usage Tracker already installed${NC}"
+    echo -e " $CHECK Claude Usage Tracker"
+fi
+
+# Check if API keys are configured (profiles_v3 is binary data, check if it exists and has content)
+profiles_len=$(defaults export HamedElfayome.Claude-Usage - 2>/dev/null | plutil -convert xml1 -o - - 2>/dev/null | grep -c "profiles_v3" || true)
+if [ "$profiles_len" -eq 0 ]; then
+    echo -e "${RED}Claude Usage Tracker is not configured.${NC}"
+    echo -e "${RED}Open the app, sign in with your API keys, then rerun this script.${NC}"
+    exit 0
 fi
 
 echo ""
@@ -94,31 +108,29 @@ for entry in $files; do
         echo "Backing up $target -> ${target}.bak"
         mv "$target" "${target}.bak"
     elif [ -L "$target" ]; then
-        echo "Removing old symlink $target"
         rm "$target"
     fi
 
-    echo "Linking $source_path -> $target"
     ln -s "$source_path" "$target"
 done
+echo -e " $CHECK Config files symlinked"
 
 # --- Configure Claude Usage Tracker statusline ---
 STATUSLINE_TARGET="$HOME/.claude/statusline-config.txt"
 cp "$DOTFILES_DIR/statusline-config.txt" "$STATUSLINE_TARGET"
 echo "PROFILE_NAME=\"$(whoami)\"" >> "$STATUSLINE_TARGET"
-echo -e "${GREEN}Claude Usage Tracker statusline configured${NC}"
+echo -e " $CHECK Claude Usage Tracker statusline configured"
 
 # --- Configure Maccy ---
-echo "Configuring Maccy..."
 defaults write org.p0deje.Maccy historySize -int 999
 defaults write org.p0deje.Maccy pasteByDefault -bool true
 defaults write org.p0deje.Maccy KeyboardShortcuts_popup -string '{"carbonKeyCode":8,"carbonModifiers":2304}'
-echo -e "${GREEN}Maccy configured (history: 999, paste by default, Opt+Cmd+C)${NC}"
+echo -e " $CHECK Maccy configured"
 
 # Reload configs (failures are non-fatal)
 set +e
-kitty @ load-config 2>/dev/null && echo -e "${GREEN}Reloaded kitty config${NC}" || echo -e "${GREEN}Press Ctrl+Shift+F5 or restart kitty to apply kitty config${NC}"
-tmux source-file "$HOME/.tmux.conf" 2>/dev/null && echo -e "${GREEN}Reloaded tmux config${NC}" || echo -e "${GREEN}No active tmux session — config will apply on next tmux start${NC}"
+kitty @ load-config 2>/dev/null && echo -e " $CHECK Kitty config reloaded" || echo -e "${GREEN}Press Ctrl+Shift+F5 or restart kitty to apply kitty config${NC}"
+tmux source-file "$HOME/.tmux.conf" 2>/dev/null && echo -e " $CHECK Tmux config reloaded" || true
 
 echo ""
-echo -e "${GREEN}Done! Run 'source ~/.zshrc' or restart your shell to apply zsh changes.${NC}"
+echo -e "${GREEN} $CHECK Done! Run 'source ~/.zshrc' or restart your shell to apply zsh changes.${NC}"
