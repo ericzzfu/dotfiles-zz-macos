@@ -29,6 +29,7 @@ for file in setup.sh zshrc tmux.conf kitty.conf claude-settings.json statusline-
 
     echo "cat > \"\$DOTFILES_DIR/$file\" <<'__EOF__'"
     cat "$source_path"
+    echo ""
     echo "__EOF__"
     echo ""
 done

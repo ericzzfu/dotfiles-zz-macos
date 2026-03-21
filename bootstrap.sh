@@ -160,6 +160,7 @@ tmux source-file "$HOME/.tmux.conf" 2>/dev/null && echo -e " $CHECK Tmux config 
 
 echo ""
 echo -e "${GREEN} $CHECK Done! Run 'source ~/.zshrc' or restart your shell to apply zsh changes.${NC}"
+
 __EOF__
 
 cat > "$DOTFILES_DIR/zshrc" <<'__EOF__'
@@ -190,6 +191,7 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Syntax highlighting (must be last)
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 __EOF__
 
 cat > "$DOTFILES_DIR/tmux.conf" <<'__EOF__'
@@ -283,6 +285,7 @@ bind -n User13 resize-pane -L 2                                # resize left
 bind -n User14 resize-pane -R 2                                # resize right
 bind -n User15 swap-window -d -t -1                            # move tab left
 bind -n User16 swap-window -d -t +1                            # move tab right
+
 __EOF__
 
 cat > "$DOTFILES_DIR/kitty.conf" <<'__EOF__'
@@ -334,6 +337,7 @@ map ctrl+opt+shift+right send_text all \x1b[314~
 map ctrl+opt+left send_text all \x1b[315~
 # Ctrl+Option+Right: move tab right
 map ctrl+opt+right send_text all \x1b[316~
+
 __EOF__
 
 cat > "$DOTFILES_DIR/claude-settings.json" <<'__EOF__'
@@ -350,7 +354,8 @@ cat > "$DOTFILES_DIR/claude-settings.json" <<'__EOF__'
       }
     }
   }
-}__EOF__
+}
+__EOF__
 
 cat > "$DOTFILES_DIR/statusline-config.txt" <<'__EOF__'
 SHOW_MODEL=1
@@ -370,6 +375,7 @@ SHOW_RESET_LABEL=1
 COLOR_MODE=colored
 SINGLE_COLOR=#00BFFF
 SHOW_PROFILE=0
+
 __EOF__
 
 chmod +x "$DOTFILES_DIR/setup.sh"
