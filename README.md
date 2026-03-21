@@ -4,14 +4,37 @@ Personal dotfiles for macOS with kitty, zsh, tmux, and Claude Code.
 
 ## Setup
 
+### Fresh Mac (bootstrap)
+
+Run the standalone bootstrap script — no git clone needed:
+
 ```bash
-git clone git@github.com:ericzzfu/dotfiles.git ~/repos/dotfiles
+curl -fsSL https://raw.githubusercontent.com/ericzzfu/dotfiles/main/bootstrap.sh | bash
+```
+
+This creates `~/dotfiles/`, writes all config files, installs dependencies, and runs `setup.sh`.
+
+### Existing clone
+
+```bash
 cd ~/repos/dotfiles && ./setup.sh
 ```
 
-The setup script:
+### Regenerating bootstrap
+
+After modifying config files, regenerate the standalone script:
+
+```bash
+./generate-bootstrap.sh > bootstrap.sh
+```
+
+This happens automatically on `git commit` via a pre-commit hook.
+
+### What setup.sh does
+
 - Installs Homebrew if missing, then installs all dependencies
 - Symlinks config files to their expected locations
+- Copies configs that need path substitution (e.g., `claude-settings.json`)
 - Backs up any existing configs (to `.bak`)
 - Configures Maccy and Claude Usage Tracker preferences
 - Auto-reloads kitty and tmux configs

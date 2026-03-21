@@ -145,4 +145,12 @@ kitty @ load-config 2>/dev/null && echo -e " $CHECK Kitty config reloaded" || ec
 tmux source-file "$HOME/.tmux.conf" 2>/dev/null && echo -e " $CHECK Tmux config reloaded" || true
 
 echo ""
+echo "Symlinked:"
+echo "  $DOTFILES_DIR/zshrc -> ~/.zshrc"
+echo "  $DOTFILES_DIR/tmux.conf -> ~/.tmux.conf"
+echo "  $DOTFILES_DIR/kitty.conf -> ~/.config/kitty/kitty.conf"
+echo "Copied:"
+echo "  $DOTFILES_DIR/claude-settings.json -> ~/.claude/settings.json"
+echo "  $DOTFILES_DIR/statusline-config.txt -> ~/.claude/statusline-config.txt"
+echo ""
 echo -e "${GREEN} $CHECK Done! Run 'source ~/.zshrc' or restart your shell to apply zsh changes.${NC}"
