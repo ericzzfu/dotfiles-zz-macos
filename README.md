@@ -24,12 +24,13 @@ Installed automatically by `setup.sh` if missing:
 |---|---|---|
 | [kitty](https://sw.kovidgoyal.net/kitty/) | Terminal | GPU-accelerated terminal emulator |
 | [tmux](https://github.com/tmux/tmux) | CLI | Terminal multiplexer |
+| [gh](https://cli.github.com/) | CLI | GitHub CLI |
 | [fzf](https://github.com/junegunn/fzf) | CLI | Fuzzy finder for history, files |
 | [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) | Plugin | Fish-like command suggestions |
 | [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) | Plugin | Command syntax coloring |
 | [Claude Code](https://claude.com/claude-code) | CLI | Anthropic's CLI for Claude |
 | [Maccy](https://maccy.app/) | App | Clipboard manager |
-| [Claude Usage Tracker](https://github.com/hamed-elfayome/Claude-Usage-Tracker) | App | Usage monitoring for Claude (manual install) |
+| [Claude Usage Tracker](https://github.com/hamed-elfayome/Claude-Usage-Tracker) | App | Usage monitoring for Claude |
 
 ## What's Included
 
