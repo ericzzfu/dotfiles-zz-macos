@@ -45,3 +45,4 @@ NC='\033[0m'
 echo ""
 echo -e "${GREEN}Done. Restart your shell or run: source ~/.zshrc${NC}"
 echo -e "${GREEN}Reload kitty config with Ctrl+Shift+F5 or restart kitty.${NC}"
+echo -e "${GREEN}Reload tmux config with: tmux source-file ~/.tmux.conf${NC}"
