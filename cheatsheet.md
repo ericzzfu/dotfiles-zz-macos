@@ -1,13 +1,31 @@
 # Dotfiles Cheat Sheet
 
+## Setup
+
+```bash
+cd ~/repos/dotfiles && ./setup.sh
+```
+
+Requires kitty terminal. Creates symlinks for zshrc, tmux.conf, kitty.conf, and Claude Code configs.
+
 ## Shell (zsh)
 
 | Shortcut | Action |
 |---|---|
 | Option+Left/Right | Jump between words |
-| Ctrl+A | Beginning of line |
-| Ctrl+E | End of line |
-| Cmd+Left/Right | Beginning/end of line (kitty) |
+| Cmd+Left/Right | Beginning/end of line |
+| Ctrl+A / Ctrl+E | Beginning/end of line (works everywhere) |
+
+## Kitty
+
+| Shortcut | Action |
+|---|---|
+| Ctrl+Shift+F5 | Reload kitty config |
+| Select text | Auto-copies to clipboard |
+| Double-click | Select word (respects custom word separators) |
+| Triple-click | Select line |
+
+Custom word separators: `-`, `_`, `.` are treated as part of a word (e.g., double-clicking `source-file` selects the whole thing).
 
 ## Tmux
 
@@ -18,8 +36,8 @@
 | Opt+Shift+T | New tab |
 | Opt+Shift+Left | Previous tab |
 | Opt+Shift+Right | Next tab |
-| Ctrl+Opt+, | Move tab left |
-| Ctrl+Opt+. | Move tab right |
+| Ctrl+Opt+Left | Move tab left |
+| Ctrl+Opt+Right | Move tab right |
 
 ### Panes (splits)
 
@@ -41,10 +59,9 @@
 |---|---|
 | Ctrl+B | Tmux prefix |
 | prefix + r | Reload tmux config |
-| Mouse select | Copy to clipboard (in tmux & kitty) |
 
-## Kitty
+## Claude Code
 
-| Shortcut | Action |
-|---|---|
-| Ctrl+Shift+F5 | Reload kitty config |
+Status line shows: `Model [ctx: used/total (pct%)] repo:branch`
+
+Context color: green (>75k free), yellow (<75k free), red (<50k free).
