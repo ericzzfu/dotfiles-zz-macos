@@ -8,6 +8,9 @@ Personal dotfiles for macOS with kitty, zsh, tmux, and Claude Code.
 - [kitty](https://sw.kovidgoyal.net/kitty/) terminal
 - [oh-my-zsh](https://ohmyz.sh/)
 - [tmux](https://github.com/tmux/tmux) (`brew install tmux`)
+- [fzf](https://github.com/junegunn/fzf) (`brew install fzf`)
+- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) (`brew install zsh-autosuggestions`)
+- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) (`brew install zsh-syntax-highlighting`)
 
 ## Setup
 
@@ -26,7 +29,7 @@ The setup script:
 
 | File | Target | Description |
 |---|---|---|
-| `zshrc` | `~/.zshrc` | oh-my-zsh config with word/line jumping keybindings |
+| `zshrc` | `~/.zshrc` | oh-my-zsh config with keybindings, fzf, autosuggestions, syntax highlighting |
 | `kitty.conf` | `~/.config/kitty/kitty.conf` | Copy-on-select, Cmd+Arrow line nav, tmux shortcut mappings |
 | `tmux.conf` | `~/.tmux.conf` | Modern theme, mouse support, kitty-style shortcuts via user-keys |
 | `statusline.sh` | `~/.claude/statusline.sh` | Claude Code status bar: model, context usage, git info |
@@ -41,6 +44,9 @@ The setup script:
 | Option+Left/Right | Jump between words |
 | Cmd+Left/Right | Beginning/end of line |
 | Ctrl+A / Ctrl+E | Beginning/end of line (works everywhere) |
+| Ctrl+R | fzf history search |
+| Ctrl+T | fzf file search |
+| Right arrow | Accept autosuggestion |
 
 ### Kitty
 

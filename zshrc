@@ -16,3 +16,12 @@ bindkey "\e[1;3D" backward-word     # Option+Left
 bindkey "\e[1;3C" forward-word      # Option+Right
 
 # Cmd+Left/Right handled by kitty.conf sending Ctrl-A/Ctrl-E directly
+
+# fzf integration (Ctrl+R history search, Ctrl+T file search, Alt+C cd)
+source <(fzf --zsh)
+
+# Autosuggestions (accept with Right arrow)
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Syntax highlighting (must be last)
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
