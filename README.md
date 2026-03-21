@@ -2,16 +2,6 @@
 
 Personal dotfiles for macOS with kitty, zsh, tmux, and Claude Code.
 
-## Requirements
-
-- macOS
-- [kitty](https://sw.kovidgoyal.net/kitty/) terminal
-- [oh-my-zsh](https://ohmyz.sh/)
-- [tmux](https://github.com/tmux/tmux) (`brew install tmux`)
-- [fzf](https://github.com/junegunn/fzf) (`brew install fzf`)
-- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) (`brew install zsh-autosuggestions`)
-- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) (`brew install zsh-syntax-highlighting`)
-
 ## Setup
 
 ```bash
@@ -20,10 +10,27 @@ cd ~/repos/dotfiles && ./setup.sh
 ```
 
 The setup script:
-- Symlinks all config files to their expected locations
+- Checks and installs dependencies via Homebrew
+- Symlinks config files to their expected locations
 - Backs up any existing configs (to `.bak`)
+- Configures Maccy and Claude Usage Tracker preferences
 - Auto-reloads kitty and tmux configs
 - Requires kitty terminal (checks `$TERM`)
+
+## Dependencies
+
+Installed automatically by `setup.sh` if missing:
+
+| Tool | Type | Description |
+|---|---|---|
+| [kitty](https://sw.kovidgoyal.net/kitty/) | Terminal | GPU-accelerated terminal emulator |
+| [tmux](https://github.com/tmux/tmux) | CLI | Terminal multiplexer |
+| [fzf](https://github.com/junegunn/fzf) | CLI | Fuzzy finder for history, files |
+| [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) | Plugin | Fish-like command suggestions |
+| [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) | Plugin | Command syntax coloring |
+| [Claude Code](https://claude.com/claude-code) | CLI | Anthropic's CLI for Claude |
+| [Maccy](https://maccy.app/) | App | Clipboard manager |
+| [Claude Usage Tracker](https://github.com/hamed-elfayome/Claude-Usage-Tracker) | App | Usage monitoring for Claude (manual install) |
 
 ## What's Included
 
@@ -31,9 +38,9 @@ The setup script:
 |---|---|---|
 | `zshrc` | `~/.zshrc` | oh-my-zsh config with keybindings, fzf, autosuggestions, syntax highlighting |
 | `kitty.conf` | `~/.config/kitty/kitty.conf` | Copy-on-select, Cmd+Arrow line nav, tmux shortcut mappings |
-| `tmux.conf` | `~/.tmux.conf` | Modern theme, mouse support, kitty-style shortcuts via user-keys |
-| `statusline.sh` | `~/.claude/statusline.sh` | Claude Code status bar: model, context usage, git info |
+| `tmux.conf` | `~/.tmux.conf` | Tokyo Night theme, mouse support, kitty-style shortcuts via user-keys |
 | `claude-settings.json` | `~/.claude/settings.json` | Claude Code settings |
+| `statusline-config.txt` | `~/.claude/statusline-config.txt` | Claude Usage Tracker statusline preferences (copied, not symlinked) |
 
 ## Keyboard Shortcuts
 
@@ -89,8 +96,12 @@ Double-click treats `-`, `_`, `.` as part of a word (e.g., `source-file` selects
 | `tmux a -t <name>` | Attach to session |
 | `tmux new -s <name>` | New named session |
 
-## Claude Code
+## App Preferences
 
-Status line shows: `Model [ctx: used/total (pct%)] repo:branch`
+### Maccy
+- History size: 999
+- Paste by default: on
+- Popup shortcut: Opt+Cmd+C
 
-Context usage color: green (>75k free), yellow (<75k free), red (<50k free).
+### Claude Usage Tracker
+Statusline configured via `statusline-config.txt` — shows model, directory, branch, context, usage, progress bar, pace marker, and reset time.
