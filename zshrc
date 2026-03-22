@@ -25,4 +25,3 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Syntax highlighting (must be last)
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
