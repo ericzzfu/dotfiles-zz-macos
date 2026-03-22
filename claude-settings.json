@@ -1,0 +1,14 @@
+{
+  "statusLine" : {
+    "type" : "command",
+    "command" : "bash __HOME__/.claude/statusline-command.sh"
+  },
+  "extraKnownMarketplaces" : {
+    "claude-plugins-official" : {
+      "source" : {
+        "repo" : "anthropics\/claude-plugins-official",
+        "source" : "github"
+      }
+    }
+  }
+}
