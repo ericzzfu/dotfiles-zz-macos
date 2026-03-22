@@ -2,6 +2,7 @@
 set -euo pipefail
 
 RED='\033[0;31m'
+YELLOW='\033[0;33m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 CHECK='\xE2\x9C\x93'
@@ -154,3 +155,4 @@ echo "  $DOTFILES_DIR/claude-settings.json -> ~/.claude/settings.json"
 echo "  $DOTFILES_DIR/statusline-config.txt -> ~/.claude/statusline-config.txt"
 echo ""
 echo -e "${GREEN} $CHECK Done! Run 'source ~/.zshrc' or restart your shell to apply zsh changes.${NC}"
+
