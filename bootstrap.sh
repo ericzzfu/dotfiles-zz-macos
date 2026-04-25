@@ -16,6 +16,7 @@ cat > "$DOTFILES_DIR/setup.sh" <<'__EOF__'
 set -euo pipefail
 
 RED='\033[0;31m'
+YELLOW='\033[0;33m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 CHECK='\xE2\x9C\x93'
@@ -169,6 +170,7 @@ echo "  $DOTFILES_DIR/statusline-config.txt -> ~/.claude/statusline-config.txt"
 echo ""
 echo -e "${GREEN} $CHECK Done! Run 'source ~/.zshrc' or restart your shell to apply zsh changes.${NC}"
 
+
 __EOF__
 
 cat > "$DOTFILES_DIR/zshrc" <<'__EOF__'
@@ -210,8 +212,8 @@ set -g mouse on
 
 # Copy-on-select handled by kitty (copy_on_select clipboard)
 
-# Word separators: removed - _ . so double-click selects paths/identifiers
-set -g word-separators "!\"#$%&'()*+,/:;<=>?@[\\]^`{|}~"
+# Word separators: removed - _ . / so double-click selects paths/identifiers
+set -g word-separators "!\"#$%&'()*+,:;<=>?@[\\]^`{|}~"
 
 # Use vi-style keys in copy mode
 setw -g mode-keys vi
